@@ -1,0 +1,38 @@
+dy-textarea {
+	cursor: text;
+	display: inline-grid;
+	width: 100%;
+	position: relative;
+}
+dy-textarea [contenteditable] {
+	display: inline-grid;
+	align-items: center;
+	transition: 0.3s;
+}
+dy-textarea [contenteditable]:empty {
+	opacity: 0.5;
+}
+dy-textarea [contenteditable]:empty:after {
+	content: attr(placeholder);
+}
+dy-textarea [contenteditable]:empty:not([placeholder]):after {
+	content: '\a0';
+}
+@supports not (word-break: break-word) {
+	dy-textarea [contenteditable] {
+		word-break: break-all;
+	}
+}
+dy-textarea [contenteditable]:before,
+dy-textarea .input {
+	content: '';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	left: 0;
+}
+dy-textarea .input {
+	pointer-events: none;
+}

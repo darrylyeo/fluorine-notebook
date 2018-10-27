@@ -1,0 +1,135 @@
+<link rel="stylesheet" href="dy-textarea.css">
+<style>
+	:root {
+		font-family: 'Roboto', monospace;
+		tab-size: 4;
+	}
+	* {
+		box-sizing: border-box;
+	}
+	body {
+		display: grid;
+		grid-gap: 2rem;
+		padding: 1rem;
+		margin: 0;
+	}
+	h1, h2, h3 {
+		margin: 0;
+	}
+	button, textarea, dy-textarea [contenteditable] {
+		background-color: rgba(0, 0, 0, 0.05);
+		border-radius: 0.5rem;
+		border: none;
+		font: inherit;
+		padding: 0.5em;
+		width: 100%;
+		transition: 0.3s;
+	}
+	button:hover {
+		background-color: rgba(0, 0, 0, 0.1);
+	}
+
+
+	dynamic-notebook {
+		display: grid;
+		grid-gap: 1rem;
+	}
+	dynamic-block {
+		display: grid;
+		grid-template:
+			1fr
+			auto
+			/ 30rem 1fr;
+		grid-gap: 0.5rem;
+		border-left: 3px rgba(0, 0, 0, 0.1) solid;
+		padding-left: 0.5em;
+		transition: 0.3s;
+	}
+	dynamic-block[state=new] {
+		animation: New 0.5s;
+	}
+	@keyframes New {
+		from {
+			opacity: 0;
+			transform: scale(0.9);
+		}
+	}
+	/*dynamic-block[state=waiting] {
+		background-color: #ffffe2;
+		animation: Waiting 1s infinite;
+	}
+	@keyframes Waiting {
+		50% {
+			background-color: #ffffe4;
+		}
+	}*/
+	dynamic-block[state=waiting] {
+		background-color: #ffffe2;
+		animation: Waiting 1s infinite;
+	}
+	@keyframes Waiting {
+		from, to {
+			background: repeating-linear-gradient(
+				45deg,
+				#ffffe2,
+				#ffffe2 1em,
+				#ffffe4 1em,
+				#ffffe4 2em
+			);
+		}
+		50% {
+			/* background-color: #ffffe4; */
+			background-position: 2em;
+		}
+	}
+	dynamic-block[state=changed] {
+		animation: Changed 0.5s;
+	}
+	@keyframes Changed {
+		0%, 40% {
+			background-color: #f3feff;
+			border-color: skyblue;
+		}
+	}
+	dynamic-block[state=error] {
+		background-color: #ffdddd;
+		color: chocolate;
+	}
+	dynamic-block .result {
+		grid-row: span 2;
+		display: block;
+		font-size: 1.2em;
+		margin: 0;
+		max-height: 7rem;
+		overflow: auto;
+	}
+	dynamic-block .code {
+		grid-area: 1 / 2;
+		font-family: 'Roboto Mono';
+	}
+	/* dynamic-block:not(:hover):not(:focus-within) textarea.code { */
+	dynamic-block[state=hidden] .code {
+		font-size: 0;
+	}
+	dynamic-block .meta {
+		color: rgba(0, 0, 0, 0.25);
+		font-size: 0.7em;
+		grid-area: 2 / 2;
+		display: flex;
+		justify-content: space-between;
+	}
+	dynamic-block .type {
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+	}
+	dynamic-block .references * {
+		font-weight: bold;
+		padding: 0.25em;
+	}
+</style>
+<body>
+<h1>Dynamic Notebook</h1>
+<script src="framework.js"></script>
+<script src="dy-textarea.js"></script>
+<script src="dynamic-notebook.js"></script>
+</body>
